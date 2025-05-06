@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
+import { useRouter } from 'next/navigation';
 
 type FormData = {
     fullName: string;
@@ -14,6 +15,7 @@ const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const [mounted, setMounted] = useState(false);
 
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -35,6 +37,12 @@ const Page = () => {
     const onSubmit = (data: FormData) => {
         localStorage.setItem('formData', JSON.stringify(data));
         setSubmitted(true);
+    };
+
+    const onNext = (data: FormData) => {
+        localStorage.setItem('formData', JSON.stringify(data));
+        setSubmitted(true);
+        router.push(`/personal-info/demographics`)
     };
 
     if (!mounted) return null; // Prevent SSR mismatch
@@ -88,17 +96,19 @@ const Page = () => {
                         <Button disabled className="border border-gray-300 py-5">
                             Previous
                         </Button>
-                        {!submitted ? (
-                            <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
-                            </Button>
+                        {submitted ? (
+                                <Button
+                                    type="button"
+                                    className="bg-gray-900 text-white py-5"
+                                    onClick={handleSubmit(onNext)}
+                                >
+                                    Next
+                                </Button>
                         ) : (
                             <Button
-                                type="button"
-                                className="bg-gray-900 text-white py-5"
-                                onClick={handleSubmit(onSubmit)}
-                            >
-                                Next
+                                type="submit"
+                                className="bg-gray-900 text-white py-5">
+                                Complete
                             </Button>
                         )}
                     </div>

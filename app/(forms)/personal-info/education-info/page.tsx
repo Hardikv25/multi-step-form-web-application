@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type Education = {
     degree: string;
@@ -19,6 +21,8 @@ type FormData = {
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const [mounted, setMounted] = useState(false);
+
+    const router = useRouter();
 
     const {
         register,
@@ -50,6 +54,12 @@ const Page = () => {
     const onSubmit = (data: FormData) => {
         localStorage.setItem('formData3', JSON.stringify(data));
         setSubmitted(true);
+    };
+
+    const onNext = (data: FormData) => {
+        localStorage.setItem('formData2', JSON.stringify(data));
+        setSubmitted(true);
+        router.push(`/contact-details/address-info`)
     };
 
     if (!mounted) return null; // Prevent SSR mismatch
@@ -127,8 +137,6 @@ const Page = () => {
                                     )}
                                 </div>
                             </div>
-
-
                             <Button
                                 type="button"
                                 variant="destructive"
@@ -148,9 +156,11 @@ const Page = () => {
                     </Button>
 
                     <div className="flex justify-between mt-6">
-                        <Button type="button" className="border border-gray-300 py-5">
-                            Previous
-                        </Button>
+                        <Link href={'/personal-info/demographics'}>
+                            <Button type="button" className="border border-gray-300 py-5">
+                                Previous
+                            </Button>
+                        </Link>
                         {!submitted ? (
                             <Button type="submit" className="bg-gray-900 text-white py-5">
                                 Complete
@@ -159,7 +169,7 @@ const Page = () => {
                             <Button
                                 type="button"
                                 className="bg-gray-900 text-white py-5"
-                                onClick={handleSubmit(onSubmit)}
+                                onClick={handleSubmit(onNext)}
                             >
                                 Next
                             </Button>

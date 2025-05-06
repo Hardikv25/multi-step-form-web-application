@@ -37,15 +37,15 @@ const data = {
       items: [
         {
           title: "Basic Information",
-          url: "/forms/personal-info/basic-information",
+          url: "/personal-info/basic-information",
         },
         {
           title: "Demographics",
-          url: "/forms/personal-info/demographics",
+          url: "/personal-info/demographics",
         },
         {
           title: "Education Qualification",
-          url: "/forms/personal-info/education-info",
+          url: "/personal-info/education-info",
         },
       ],
     },
@@ -83,7 +83,7 @@ const data = {
   projects: [
     {
       name: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: PieChart,
     },
   ],

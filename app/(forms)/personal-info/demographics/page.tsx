@@ -10,6 +10,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type FormData = {
     gender: string
@@ -19,6 +21,8 @@ type FormData = {
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const [mounted, setMounted] = useState(false);
+
+    const router = useRouter();
 
     const {
         handleSubmit,
@@ -41,6 +45,12 @@ const Page = () => {
     const onSubmit = (data: FormData) => {
         localStorage.setItem('formData2', JSON.stringify(data));
         setSubmitted(true);
+    };
+
+    const onNext = (data: FormData) => {
+        localStorage.setItem('formData2', JSON.stringify(data));
+        setSubmitted(true);
+        router.push(`/personal-info/education-info`)
     };
 
     if (!mounted) return null;
@@ -104,20 +114,22 @@ const Page = () => {
                     </div>
 
                     <div className="flex justify-between">
-                        <Button type="button" className="border border-gray-300 py-5">
-                            Previous
-                        </Button>
-                        {!submitted ? (
-                            <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
+                        <Link href={'/personal-info/basic-information'}>
+                            <Button type="button" className="border border-gray-300 py-5">
+                                Previous
                             </Button>
-                        ) : (
+                        </Link>
+                        {submitted ? (
                             <Button
                                 type="button"
                                 className="bg-gray-900 text-white py-5"
-                                onClick={handleSubmit(onSubmit)}
+                                onClick={handleSubmit(onNext)}
                             >
                                 Next
+                            </Button>
+                        ) : (
+                            <Button type="submit" className="bg-gray-900 text-white py-5">
+                                Complete
                             </Button>
                         )}
                     </div>
