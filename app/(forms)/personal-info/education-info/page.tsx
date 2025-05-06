@@ -6,6 +6,13 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 type Education = {
     degree: string;
@@ -20,7 +27,6 @@ type FormData = {
 
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
-    const [mounted, setMounted] = useState(false);
 
     const router = useRouter();
 
@@ -48,7 +54,6 @@ const Page = () => {
             setValue('education', parsedData.education);
             setSubmitted(true);
         }
-        setMounted(true);
     }, [setValue]);
 
     const onSubmit = (data: FormData) => {
@@ -57,12 +62,10 @@ const Page = () => {
     };
 
     const onNext = (data: FormData) => {
-        localStorage.setItem('formData2', JSON.stringify(data));
+        localStorage.setItem('formData3', JSON.stringify(data));
         setSubmitted(true);
-        router.push(`/contact-details/address-info`)
+        router.push(`/contact-info/address-info`)
     };
-
-    if (!mounted) return null; // Prevent SSR mismatch
 
     return (
         <div className="shadow-2xl rounded-xl bg-white sm:m-4 p-4 sm:p-6">
@@ -73,16 +76,31 @@ const Page = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => (
                         <div key={field.id} className="space-y-4 border p-4 rounded-lg shadow-sm mb-4">
-                            <div className='grid grid-cols-2'>
+                            <div className='grid grid-cols-2 gap-4'>
                                 <div className='col-span-1'>
                                     <Label>Degree</Label>
-                                    <Input
-                                        type="text"
-                                        placeholder="e.g. B.Tech"
-                                        {...register(`education.${index}.degree`, {
-                                            required: 'Degree is required',
-                                        })}
-                                    />
+                                    <Select
+                                        onValueChange={(value) =>
+                                            setValue(`education.${index}.degree`, value)
+                                        }
+                                        defaultValue={fields[index]?.degree}
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select Degree" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="High School">High School</SelectItem>
+                                            <SelectItem value="Diploma">Diploma</SelectItem>
+                                            <SelectItem value="B.Tech">B.Tech</SelectItem>
+                                            <SelectItem value="B.Sc">B.Sc</SelectItem>
+                                            <SelectItem value="B.Com">B.Com</SelectItem>
+                                            <SelectItem value="M.Tech">M.Tech</SelectItem>
+                                            <SelectItem value="M.Sc">M.Sc</SelectItem>
+                                            <SelectItem value="MCA">MCA</SelectItem>
+                                            <SelectItem value="MBA">MBA</SelectItem>
+                                            <SelectItem value="PhD">PhD</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                     {errors.education?.[index]?.degree && (
                                         <p className="text-sm text-red-500 mt-1">
                                             {errors.education[index].degree?.message}
@@ -106,8 +124,8 @@ const Page = () => {
                                 </div>
                             </div>
 
-                            <div className='flex flex-wrap w-full gap-4'>
-                                <div className=''>
+                            <div className='grid grid-cols-2 gap-4'>
+                                <div className='col-span-1'>
                                     <Label>Start Date</Label>
                                     <Input
                                         type="date"
@@ -122,7 +140,7 @@ const Page = () => {
                                     )}
                                 </div>
 
-                                <div className=''>
+                                <div className='col-span-1'>
                                     <Label>End Date</Label>
                                     <Input
                                         type="date"
@@ -176,8 +194,8 @@ const Page = () => {
                         )}
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

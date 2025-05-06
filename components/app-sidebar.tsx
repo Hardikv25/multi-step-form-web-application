@@ -56,11 +56,11 @@ const data = {
       items: [
         {
           title: "Address Information",
-          url: "#",
+          url: "/contact-info/address-info",
         },
         {
           title: "Phone Information",
-          url: "#",
+          url: "/contact-info/phone-info",
         }
       ],
     },
