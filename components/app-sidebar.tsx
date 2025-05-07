@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/sidebar"
 import { NavProjects } from "./nav-projects"
 
-// This is sample data.
 const data = {
   teams: [
     {
