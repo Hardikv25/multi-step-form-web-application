@@ -45,7 +45,7 @@ const Page = () => {
     const onNext = (data: FormData) => {
         localStorage.setItem('formData5', JSON.stringify(data));
         setSubmitted(true);
-        router.push(`/contact-info/phone-info`)
+        router.push(`/preferences/communication-pref`)
     };
 
     if (!mounted) return null;
