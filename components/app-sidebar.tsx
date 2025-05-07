@@ -28,12 +28,18 @@ const data = {
       plan: "Forms",
     },
   ],
+  projects: [
+    {
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: PieChart,
+    },
+  ],
   navMain: [
     {
       title: "Personal Information",
       url: "#",
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: "Basic Information",
@@ -71,22 +77,16 @@ const data = {
       items: [
         {
           title: "Communication Preferences",
-          url: "#",
+          url: "/preferences/communication-pref",
         },
         {
           title: "Terms and Conditions",
-          url: "#",
+          url: "/preferences/term-condition",
         }
       ],
     },
   ],
-  projects: [
-    {
-      name: "Dashboard",
-      url: "/dashboard",
-      icon: PieChart,
-    },
-  ],
+  
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

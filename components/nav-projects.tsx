@@ -9,6 +9,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function NavProjects({
   projects,
@@ -19,6 +21,8 @@ export function NavProjects({
     icon: LucideIcon
   }[]
 }) {
+
+  const pathname = usePathname();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -26,10 +30,12 @@ export function NavProjects({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton tooltip={item.name} asChild>
-              <a href={item.url} className="flex items-center gap-2">
+              <Link href={item.url} className={`flex items-center gap-2 
+              ${pathname === item.url ? "bg-black text-white hover:bg-neutral-800"
+                  : "text-gray-700 hover:bg-gray-200"}`}>
                 <item.icon className="size-4" />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
