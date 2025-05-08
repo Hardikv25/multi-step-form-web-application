@@ -51,8 +51,8 @@ const Page = () => {
     if (!mounted) return null;
 
     return (
-        <div className="shadow-2xl rounded-xl bg-white sm:m-4 p-4 sm:p-6">
-            <div className="my-8">
+        <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
+            <div>
                 <h1 className="font-bold text-2xl">Phone Information</h1>
                 <p className="text-gray-600">Contact Details</p>
 
@@ -102,7 +102,7 @@ const Page = () => {
                             <p className="text-sm text-red-500 mt-1">{errors.phoneType.message}</p>
                         )}
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between border-t pt-4">
                         <Link href={'/contact-info/address-info'}>
                             <Button type="button" className="border border-gray-300 py-5">
                                 Previous

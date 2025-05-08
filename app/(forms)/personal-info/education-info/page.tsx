@@ -68,8 +68,8 @@ const Page = () => {
     };
 
     return (
-        <div className="shadow-2xl rounded-xl bg-white sm:m-4 p-4 sm:p-6">
-            <div className="my-8">
+        <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
+            <div>
                 <h1 className="font-bold text-2xl">Education Qualification</h1>
                 <p className="text-gray-600">Please provide your education details</p>
 
@@ -173,7 +173,7 @@ const Page = () => {
                         Add Another Degree
                     </Button>
 
-                    <div className="flex justify-between mt-6">
+                    <div className="flex justify-between mt-4 pt-4 border-t">
                         <Link href={'/personal-info/demographics'}>
                             <Button type="button" className="border border-gray-300 py-5">
                                 Previous
