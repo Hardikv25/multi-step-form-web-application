@@ -1,6 +1,9 @@
 "use client"
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
+import { useEffect, useState } from "react"
+import { useRouter, usePathname } from "next/navigation"
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,8 +19,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+
+import { formSteps } from "@/components/form-steps"
 
 export function NavMain({
   items,
@@ -33,6 +36,29 @@ export function NavMain({
   }[]
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [enabledPaths, setEnabledPaths] = useState<string[]>([]);
+
+  useEffect(() => {
+    const enabled: string[] = [];
+
+    for (let i = 0; i < formSteps.length; i++) {
+      const step = formSteps[i && i];
+      const value = localStorage.getItem(step.key);
+      const isFilled = value && value !== "null" && value !== "{}";
+
+      if (isFilled) {
+        enabled.push(step.path);
+      } else {
+        enabled.push(step.path);
+        break;
+      }
+    }
+
+    setEnabledPaths(enabled);
+  }, []);
+
+  const isEnabled = (url: string) => enabledPaths.includes(url);
 
   return (
     <SidebarGroup>
@@ -57,21 +83,28 @@ export function NavMain({
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {item.items?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <Link
-                            href={subItem.url}
-                            className={`w-full flex items-center gap-2 px-4 py-2 rounded-md ${pathname === subItem.url
-                                ? "bg-black text-white hover:bg-neutral-800"
-                                : "text-gray-700 hover:bg-gray-200"
-                              }`}
-                          >
-                            <span>{subItem.title}</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
+                    {item.items?.map((subItem) => {
+                      const active = pathname === subItem.url;
+                      const enabled = isEnabled(subItem.url);
+                      return (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton asChild>
+                            <button
+                              
+                              onClick={() => enabled && router.push(subItem.url)}
+                              className={`w-full text-left flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${active
+                                  ? "bg-black text-white hover:bg-neutral-800"
+                                  : enabled
+                                    ? "text-gray-700 hover:bg-gray-200"
+                                    : "text-gray-400 cursor-not-allowed"
+                                }`}
+                            >
+                              <span>{subItem.title}</span>
+                            </button>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      );
+                    })}
                   </SidebarMenuSub>
                 </CollapsibleContent>
               </SidebarMenuItem>

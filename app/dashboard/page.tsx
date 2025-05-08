@@ -2,7 +2,7 @@
 
 import ContinueButton from '@/components/continue-button'
 import { Button } from '@/components/ui/button'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -13,20 +13,11 @@ import {
 } from "@/components/ui/table"
 import { Check, Loader, MoveRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { formSteps } from '@/components/form-steps'
 
 const Page = () => {
   const router = useRouter()
   const [formStatus, setFormStatus] = useState<Record<string, boolean>>({})
-
-  const formSteps = useMemo(() => [
-    { id: 1, key: 'formData', formName: 'Basic Information', path: '/personal-info/basic-information' },
-    { id: 2, key: 'formData2', formName: 'Demographics', path: '/personal-info/demographics' },
-    { id: 3, key: 'formData3', formName: 'Education Information', path: '/personal-info/education-info' },
-    { id: 4, key: 'formData4', formName: 'Address Information', path: '/contact-info/address-info' },
-    { id: 5, key: 'formData5', formName: 'Phone Information', path: '/contact-info/phone-info' },
-    { id: 6, key: 'formData6', formName: 'Communication Preferences', path: '/preferences/communication-pref' },
-    { id: 7, key: 'formData7', formName: 'Terms & Conditions', path: '/preferences/term-condition' },
-  ], [])
 
   useEffect(() => {
     const statusMap: Record<string, boolean> = {}
@@ -35,7 +26,7 @@ const Page = () => {
       statusMap[key] = !!value && value !== '{}' && value !== 'null'
     })
     setFormStatus(statusMap)
-  }, [formSteps])
+  }, [])
 
   const handleSmartNavigate = (formKey: string, formUrl: string) => {
     if (formStatus[formKey]) {
@@ -70,7 +61,7 @@ const Page = () => {
           <Table className="min-w-full text-sm">
             <TableHeader>
               <TableRow className="bg-gray-50 text-gray-600 uppercase tracking-wide text-xs font-semibold">
-                <TableHead className="w-[100px]">Step ID</TableHead>
+                <TableHead className="">Form ID</TableHead>
                 <TableHead>Form Name</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Action</TableHead>
