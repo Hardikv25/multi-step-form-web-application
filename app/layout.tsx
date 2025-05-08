@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
-
+import { Analytics } from "@vercel/analytics/react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -33,6 +33,7 @@ export default function RootLayout({
             </header>
             <div className="flex flex-1 flex-col gap-4 p-4 sm:p-8">
               {children}
+              <Analytics/>
             </div>
           </SidebarInset>
         </SidebarProvider>
