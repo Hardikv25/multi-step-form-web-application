@@ -5,17 +5,18 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
+import { getFormData, setFormData } from '@/utils/formStorage';
 
 type FormData = {
     fullName: string;
     email: string;
 };
 
+
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
-    const [mounted, setMounted] = useState(false);
-
     const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -23,29 +24,28 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
+    const CATEGORY = 'Personal Information'
+    const FORM_NAME = 'Basic Information'
+    
     useEffect(() => {
-        const savedData = localStorage.getItem('formData');
+        const savedData = getFormData(CATEGORY, FORM_NAME);
         if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            setValue('fullName', parsedData.fullName);
-            setValue('email', parsedData.email);
+            setValue('fullName', savedData.fullName);
+            setValue('email', savedData.email);
             setSubmitted(true);
         }
-        setMounted(true);
     }, [setValue]);
 
     const onSubmit = (data: FormData) => {
-        localStorage.setItem('formData', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
     };
 
     const onNext = (data: FormData) => {
-        localStorage.setItem('formData', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
-        router.push(`/personal-info/demographics`)
+        router.push(`/personal-info/demographics`);
     };
-
-    if (!mounted) return null; // Prevent SSR mismatch
 
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
@@ -97,17 +97,15 @@ const Page = () => {
                             Previous
                         </Button>
                         {submitted ? (
-                                <Button
-                                    type="button"
-                                    className="bg-gray-900 text-white py-5"
-                                    onClick={handleSubmit(onNext)}
-                                >
-                                    Next
-                                </Button>
-                        ) : (
                             <Button
-                                type="submit"
-                                className="bg-gray-900 text-white py-5">
+                                type="button"
+                                className="bg-gray-900 text-white py-5"
+                                onClick={handleSubmit(onNext)}
+                            >
+                                Next
+                            </Button>
+                        ) : (
+                            <Button type="submit" className="bg-gray-900 text-white py-5">
                                 Complete
                             </Button>
                         )}

@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Link from 'next/link';
+import { getFormData, setFormData } from '@/utils/formStorage';
 
 type FormData = {
     contactType: string;
@@ -13,7 +14,6 @@ type FormData = {
 
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
-    const [mounted, setMounted] = useState(false);
 
     const router = useRouter();
     const {
@@ -23,65 +23,61 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
+    const CATEGORY = 'Preferences';
+    const FORM_NAME = 'Communication Preferences';
+
     useEffect(() => {
-        const savedData = localStorage.getItem('formData6');
+        const savedData = getFormData(CATEGORY, FORM_NAME);
         if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            setValue('contactType', parsedData.contactType);
+            setValue('contactType', savedData.contactType);
             setSubmitted(true);
         }
-        setMounted(true);
     }, [setValue]);
 
     const onSubmit = (data: FormData) => {
-        localStorage.setItem('formData6', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
     };
 
     const onNext = (data: FormData) => {
-        localStorage.setItem('formData6', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
         router.push(`/preferences/term-condition`)
     };
 
-    if (!mounted) return null; // Prevent SSR mismatch
 
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
             <div>
-            <h1 className="font-bold text-2xl">Communication Preferences</h1>
-                         <p className="text-gray-600">Preferences</p>
+                <h1 className="font-bold text-2xl">Communication Preferences</h1>
+                <p className="text-gray-600">Preferences</p>
 
-                         <form onSubmit={handleSubmit(onSubmit)}>
-                             <div className="my-4">
-                                 <Label>Preferred Contact Method<span className="ml-[-4px] text-red-500">*</span></Label>
-                                 <Controller
-                                    name="contactType"
-                                    control={control}
-                                    rules={{ required: "Preferred Contact Method is required" }}
-                                    render={({ field }) => (
-                                        <RadioGroup onValueChange={field.onChange} value={field.value}>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="Email" id="Email" />
-                                                <Label htmlFor="Email">Email</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="Phone" id="Phone" />
-                                                <Label htmlFor="Phone">Phone</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="Mail" id="Mail" />
-                                                <Label htmlFor="Mail">Mail</Label>
-                                            </div>
-                                        </RadioGroup>
-                                    )}
-                                />
-                                {errors.contactType && (
-                                    <p className="text-sm text-red-500 mt-1">{errors.contactType.message}</p>
-                                )}
-                            </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="my-4">
+                        <Label>Preferred Contact Method<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Controller
+                            name="contactType"
+                            control={control}
+                            rules={{ required: "Preferred Contact Method is required" }}
+                            render={({ field }) => (
+                                <RadioGroup onValueChange={field.onChange} value={field.value}>
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="Email" id="Email" />
+                                        <Label htmlFor="Email">Email</Label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="Phone" id="Phone" />
+                                        <Label htmlFor="Phone">Phone</Label>
+                                    </div>
+                                </RadioGroup>
+                            )}
+                        />
+                        {errors.contactType && (
+                            <p className="text-sm text-red-500 mt-1">{errors.contactType.message}</p>
+                        )}
+                    </div>
 
-                            <div className="flex justify-between pt-4 border-t">
+                    <div className="flex justify-between pt-4 border-t">
                         <Link href={'/contact-info/phone-info'}>
                             <Button type="button" className="border border-gray-300 py-5">
                                 Previous

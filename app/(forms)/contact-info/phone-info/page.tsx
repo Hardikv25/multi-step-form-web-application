@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { getFormData, setFormData } from '@/utils/formStorage';
 
 type FormData = {
     phone: string
@@ -15,8 +16,10 @@ type FormData = {
 
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
-    const [mounted, setMounted] = useState(false);
     const router = useRouter();
+
+    const CATEGORY = 'Contact Information';
+    const FORM_NAME = 'Phone Information';
 
     const {
         handleSubmit,
@@ -27,28 +30,24 @@ const Page = () => {
     } = useForm<FormData>();
 
     useEffect(() => {
-        const savedData = localStorage.getItem('formData5');
+        const savedData = getFormData(CATEGORY, FORM_NAME);
         if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            setValue('phone', parsedData.phone);
-            setValue('phoneType', parsedData.phoneType);
+            setValue('phone', savedData.phone);
+            setValue('phoneType', savedData.phoneType);
             setSubmitted(true);
         }
-        setMounted(true);
     }, [setValue]);
 
     const onSubmit = (data: FormData) => {
-        localStorage.setItem('formData5', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
     };
 
     const onNext = (data: FormData) => {
-        localStorage.setItem('formData5', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
-        router.push(`/preferences/communication-pref`)
+        router.push(`/preferences/communication-pref`);
     };
-
-    if (!mounted) return null;
 
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">

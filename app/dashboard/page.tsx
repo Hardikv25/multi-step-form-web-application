@@ -13,28 +13,34 @@ import {
 } from "@/components/ui/table"
 import { Check, Loader, MoveRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { formSteps } from '@/components/form-steps'
+import { formSteps } from '@/utils/form-steps'
 
 const Page = () => {
   const router = useRouter()
   const [formStatus, setFormStatus] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
+    const rawData = localStorage.getItem('multiStepFormData')
+    const data = rawData ? JSON.parse(rawData) : {}
     const statusMap: Record<string, boolean> = {}
-    formSteps.forEach(({ key }) => {
-      const value = localStorage.getItem(key)
-      statusMap[key] = !!value && value !== '{}' && value !== 'null'
+
+    formSteps.forEach(({ categoryName, formName }) => {
+      const isFilled = !!data?.[categoryName]?.[formName] &&
+        Object.keys(data[categoryName][formName]).length > 0
+      statusMap[`${categoryName}-${formName}`] = isFilled
     })
+
     setFormStatus(statusMap)
   }, [])
 
-  const handleSmartNavigate = (formKey: string, formUrl: string) => {
-    if (formStatus[formKey]) {
-      router.push(formUrl)
+  const handleSmartNavigate = (category: string, form: string, path: string) => {
+    const currentKey = `${category}-${form}`
+    if (formStatus[currentKey]) {
+      router.push(path)
     } else {
       for (const step of formSteps) {
-        const value = localStorage.getItem(step.key)
-        if (!value || value === '{}' || value === 'null') {
+        const key = `${step.categoryName}-${step.formName}`
+        if (!formStatus[key]) {
           router.push(step.path)
           return
         }
@@ -61,7 +67,7 @@ const Page = () => {
           <Table className="min-w-full text-sm">
             <TableHeader>
               <TableRow className="bg-gray-50 text-gray-600 uppercase tracking-wide text-xs font-semibold">
-                <TableHead className="">Form ID</TableHead>
+                <TableHead>Form ID</TableHead>
                 <TableHead>Form Name</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Action</TableHead>
@@ -69,38 +75,42 @@ const Page = () => {
             </TableHeader>
 
             <TableBody>
-              {formSteps.map((form) => (
-                <TableRow
-                  key={form.id}
-                  className="hover:bg-gray-100 transition-all duration-150"
-                >
-                  <TableCell className="font-medium text-gray-800">{form.id}</TableCell>
-                  <TableCell className="text-gray-700">{form.formName}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      {formStatus[form.key] ? (
-                        <span className="flex items-center gap-1 text-green-600 font-medium">
-                          <Check className="w-4 h-4" /> Completed
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 text-red-500 font-medium">
-                          <Loader className="w-4 h-4 animate-spin" /> Pending
-                        </span>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleSmartNavigate(form.key, form.path)}
-                      className="hover:bg-gray-200 transition"
-                    >
-                      <MoveRight className="w-4 h-4 mr-1" /> Go
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {formSteps.map((form) => {
+                const key = `${form.categoryName}-${form.formName}`
+                const status = formStatus[key]
+
+                return (
+                  <TableRow key={form.id} className="hover:bg-gray-100 transition-all duration-150">
+                    <TableCell className="font-medium text-gray-800">{form.id}</TableCell>
+                    <TableCell className="text-gray-700">{form.formName}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {status ? (
+                          <span className="flex items-center gap-1 text-green-600 font-medium">
+                            <Check className="w-4 h-4" /> Completed
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1 text-red-500 font-medium">
+                            <Loader className="w-4 h-4 animate-spin" /> Pending
+                          </span>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          handleSmartNavigate(form.categoryName, form.formName, form.path)
+                        }
+                        className="hover:bg-gray-200 transition"
+                      >
+                        <MoveRight className="w-4 h-4 mr-1" /> Go
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </div>

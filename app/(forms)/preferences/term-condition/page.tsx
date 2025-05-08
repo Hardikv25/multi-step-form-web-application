@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
+import { getFormData, setFormData } from '@/utils/formStorage';
 
 type FormData = {
   terms: boolean;
@@ -12,7 +13,6 @@ type FormData = {
 
 const Page = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [congrats, setCongrats] = useState(false);
 
   const {
@@ -22,34 +22,32 @@ const Page = () => {
     setValue,
   } = useForm<FormData>();
 
+  const CATEGORY = 'Preferences';
+  const FORM_NAME = 'Terms & Conditions';
+
   useEffect(() => {
-    const savedData = localStorage.getItem('formData7');
+    const savedData = getFormData(CATEGORY, FORM_NAME);
     if (savedData) {
-      const parsedData = JSON.parse(savedData);
-      setValue('terms', parsedData.terms);
+      setValue('terms', savedData.terms);
       setSubmitted(true);
     }
 
     const submitAll = localStorage.getItem('SubmitAll');
     if (submitAll === 'true') {
       setCongrats(true);
-      setSubmitted(true); // Also enable Submit All button state
+      setSubmitted(true);
     }
-
-    setMounted(true);
   }, [setValue]);
 
   const onSubmit = (data: FormData) => {
-    localStorage.setItem('formData7', JSON.stringify(data));
-    setSubmitted(true);
-  };
+      setFormData(CATEGORY, FORM_NAME, data);
+      setSubmitted(true);
+    };
 
   const onSubmitAll = () => {
     localStorage.setItem('SubmitAll', 'true');
     setCongrats(true);
   };
-
-  if (!mounted) return null; // Prevent SSR mismatch
 
   return (
     <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">

@@ -20,7 +20,8 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 
-import { formSteps } from "@/components/form-steps"
+import { formSteps } from "@/utils/form-steps"
+import { getFormData } from "@/utils/formStorage"
 
 export function NavMain({
   items,
@@ -45,8 +46,8 @@ export function NavMain({
     const enabled: string[] = []
     for (let i = 0; i < formSteps.length; i++) {
       const step = formSteps[i]
-      const value = localStorage.getItem(step.key)
-      const isFilled = value && value !== "null" && value !== "{}"
+      const value = getFormData(step.categoryName, step.formName)
+      const isFilled = value && Object.keys(value).length > 0
 
       enabled.push(step.path)
       if (!isFilled) break

@@ -6,16 +6,16 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import { getFormData, setFormData } from '@/utils/formStorage';
 
 type FormData = {
     address: string
     city: string
-    zip:string
+    zip: string
 };
 
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
-    const [mounted, setMounted] = useState(false);
     const router = useRouter();
 
     const {
@@ -25,30 +25,29 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
+    const CATEGORY = 'Contact Information'
+    const FORM_NAME = 'Address Information'
+
     useEffect(() => {
-        const savedData = localStorage.getItem('formData4');
+        const savedData = getFormData(CATEGORY, FORM_NAME);
         if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            setValue('address', parsedData.address);
-            setValue('city', parsedData.city);
-            setValue('zip',parsedData.zip);
+            setValue('address', savedData.address);
+            setValue('city', savedData.city);
+            setValue('zip', savedData.zip);
             setSubmitted(true);
         }
-        setMounted(true);
     }, [setValue]);
 
     const onSubmit = (data: FormData) => {
-        localStorage.setItem('formData4', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
     };
 
     const onNext = (data: FormData) => {
-        localStorage.setItem('formData4', JSON.stringify(data));
+        setFormData(CATEGORY, FORM_NAME, data);
         setSubmitted(true);
         router.push(`/contact-info/phone-info`)
     };
-
-    if (!mounted) return null;
 
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">

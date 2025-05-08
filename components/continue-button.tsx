@@ -3,34 +3,26 @@
 import { useRouter } from 'next/navigation'
 import { Button } from './ui/button'
 import { ArrowBigRightDash } from 'lucide-react'
+import { formSteps } from '@/utils/form-steps'
+import { getFormData } from '@/utils/formStorage'
 
 const ContinueButton = () => {
   const router = useRouter()
 
-  const formSteps = [
-    { key: 'formData', path: '/personal-info/basic-information' },
-    { key: 'formData2', path: '/personal-info/demographics' },
-    { key: 'formData3', path: '/personal-info/education-info' },
-    { key: 'formData4', path: '/contact-info/address-info' },
-    { key: 'formData5', path: '/contact-info/phone-info' },
-    { key: 'formData6', path: '/preferences/communication-pref' },
-    { key: 'formData7', path: '/preferences/term-condition' },
-  ]
-
   const handleContinue = () => {
     for (const step of formSteps) {
-      const data = localStorage.getItem(step.key)
-      if (!data || data === '{}' || data === 'null') {
+      const data = getFormData(step.categoryName, step.formName)
+      if (!data || Object.keys(data).length === 0) {
         router.push(step.path)
         return
       }
     }
-    router.push('/')
+    router.push('/preferences/term-condition')
   }
 
   return (
-    <Button onClick={handleContinue} className=''>
-      Continue<ArrowBigRightDash/>
+    <Button onClick={handleContinue}>
+      Continue <ArrowBigRightDash className="ml-2" />
     </Button>
   )
 }
