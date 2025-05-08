@@ -30,7 +30,7 @@ const data = {
   projects: [
     {
       name: "Dashboard",
-      url: "/dashboard",
+      url: "/",
       icon: PieChart,
     },
   ],

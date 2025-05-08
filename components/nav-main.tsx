@@ -35,83 +35,90 @@ export function NavMain({
     }[]
   }[]
 }) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const [enabledPaths, setEnabledPaths] = useState<string[]>([]);
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const [enabledPaths, setEnabledPaths] = useState<string[]>([])
+  const [openGroupTitle, setOpenGroupTitle] = useState<string | null>(null)
 
   useEffect(() => {
-    const enabled: string[] = [];
-
+    const enabled: string[] = []
     for (let i = 0; i < formSteps.length; i++) {
-      const step = formSteps[i && i];
-      const value = localStorage.getItem(step.key);
-      const isFilled = value && value !== "null" && value !== "{}";
+      const step = formSteps[i]
+      const value = localStorage.getItem(step.key)
+      const isFilled = value && value !== "null" && value !== "{}"
 
-      if (isFilled) {
-        enabled.push(step.path);
-      } else {
-        enabled.push(step.path);
-        break;
-      }
+      enabled.push(step.path)
+      if (!isFilled) break
     }
+    setEnabledPaths(enabled)
+  }, [])
 
-    setEnabledPaths(enabled);
-  }, []);
+  useEffect(() => {
+    const matchedGroup = items.find((group) =>
+      group.items?.some((sub) => sub.url === pathname)
+    )
+    setOpenGroupTitle(matchedGroup?.title ?? null)
+  }, [pathname, items])
 
-  const isEnabled = (url: string) => enabledPaths.includes(url);
+  const isEnabled = (url: string) => enabledPaths.includes(url)
+
+  const handleToggle = (title: string) => {
+    setOpenGroupTitle((prev) => (prev === title ? null : title))
+  }
 
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Forms</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
-          const isOpen = item.items?.some((sub) => pathname === sub.url);
+          const isOpen = openGroupTitle === item.title
           return (
-            <Collapsible
-              key={item.title}
-              asChild
-              defaultOpen={isOpen}
-              className="group/collapsible"
-            >
+            <Collapsible key={item.title} open={isOpen} className="group/collapsible">
               <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
+                <CollapsibleTrigger asChild onClick={() => handleToggle(item.title)}>
                   <SidebarMenuButton tooltip={item.title}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    <ChevronRight
+                      className={`ml-auto transition-transform duration-200 ${
+                        isOpen ? "rotate-90" : ""
+                      }`}
+                    />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => {
-                      const active = pathname === subItem.url;
-                      const enabled = isEnabled(subItem.url);
+                      const active = pathname === subItem.url
+                      const enabled = isEnabled(subItem.url)
+
                       return (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
                             <button
-                              
                               onClick={() => enabled && router.push(subItem.url)}
-                              className={`w-full text-left flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${active
+                              className={`w-full text-left flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+                                active
                                   ? "bg-black text-white hover:bg-neutral-800"
                                   : enabled
-                                    ? "text-gray-700 hover:bg-gray-200"
-                                    : "text-gray-400 cursor-not-allowed"
-                                }`}
+                                  ? "text-gray-700 hover:bg-gray-200"
+                                  : "text-gray-400 cursor-not-allowed"
+                              }`}
                             >
                               <span>{subItem.title}</span>
                             </button>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
-                      );
+                      )
                     })}
                   </SidebarMenuSub>
                 </CollapsibleContent>
               </SidebarMenuItem>
             </Collapsible>
-          );
+          )
         })}
       </SidebarMenu>
     </SidebarGroup>
-  );
+  )
 }
