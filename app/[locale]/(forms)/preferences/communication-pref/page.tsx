@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Link from 'next/link';
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type FormData = {
     contactType: string;
@@ -25,6 +26,8 @@ const Page = () => {
 
     const CATEGORY = 'Preferences';
     const FORM_NAME = 'Communication Preferences';
+
+    const t = useTranslations('CommunicationPrefPage');
 
     useEffect(() => {
         const savedData = getFormData(CATEGORY, FORM_NAME);
@@ -49,25 +52,25 @@ const Page = () => {
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
             <div>
-                <h1 className="font-bold text-2xl">Communication Preferences</h1>
-                <p className="text-gray-600">Preferences</p>
+                <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+                <p className="text-gray-600">{t('formName')}</p>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="my-4">
-                        <Label>Preferred Contact Method<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('contactMethodLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Controller
                             name="contactType"
                             control={control}
-                            rules={{ required: "Preferred Contact Method is required" }}
+                            rules={{ required: t('contactTypeRequiredErrorMessage') }}
                             render={({ field }) => (
                                 <RadioGroup onValueChange={field.onChange} value={field.value}>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="Email" id="Email" />
-                                        <Label htmlFor="Email">Email</Label>
+                                        <Label htmlFor="Email">{t('email')}</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="Phone" id="Phone" />
-                                        <Label htmlFor="Phone">Phone</Label>
+                                        <Label htmlFor="Phone">{t('phone')}</Label>
                                     </div>
                                 </RadioGroup>
                             )}
@@ -80,20 +83,20 @@ const Page = () => {
                     <div className="flex justify-between pt-4 border-t">
                         <Link href={'/contact-info/phone-info'}>
                             <Button type="button" className="border border-gray-300 py-5">
-                                Previous
+                                {t('previousBtn')}
                             </Button>
                         </Link>
                         {submitted ? (
                             <Button
-                                type="button"
+                                type="submit"
                                 className="bg-gray-900 text-white py-5"
                                 onClick={handleSubmit(onNext)}
                             >
-                                Next
+                                {t('nextBtn')}
                             </Button>
                         ) : (
                             <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
+                                {t('completeBtn')}
                             </Button>
                         )}
                     </div>

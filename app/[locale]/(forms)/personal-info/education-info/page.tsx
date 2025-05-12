@@ -84,7 +84,7 @@ const Page = () => {
                     defaultValue={fields[index]?.degree}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="" />
+                      <SelectValue placeholder={t('degreePlaceHolder')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="High School">{t('highSchool')}</SelectItem>
@@ -160,7 +160,7 @@ const Page = () => {
                 onClick={() => remove(index)}
                 className="mt-2"
               >
-                Remove
+                {t('removeBtn')}
               </Button>
             </div>
           ))}
@@ -169,18 +169,18 @@ const Page = () => {
             type="button"
             onClick={() => append({ degree: '', startDate: '', endDate: '', percentage: '' })}
           >
-            Add Another Degree
+            {t('addOtherBtn')}
           </Button>
 
           <div className="flex justify-between mt-4 pt-4 border-t">
             <Link href={'/personal-info/demographics'}>
               <Button type="button" className="border border-gray-300 py-5">
-                Previous
+                {t('previousBtn')}
               </Button>
             </Link>
             {!submitted ? (
               <Button type="submit" className="bg-gray-900 text-white py-5">
-                Complete
+                {t('completeBtn')}
               </Button>
             ) : (
               <Button
@@ -188,7 +188,7 @@ const Page = () => {
                 className="bg-gray-900 text-white py-5"
                 onClick={handleSubmit(onNext)}
               >
-                Next
+                {t('nextBtn')}
               </Button>
             )}
           </div>

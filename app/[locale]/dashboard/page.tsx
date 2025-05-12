@@ -25,7 +25,7 @@ const Page = () => {
   const [formStatus, setFormStatus] = useState<Record<string, boolean>>({})
   const [openCategory, setOpenCategory] = useState<string | null>(null)
 
-  const t = useTranslations('HomePage');
+  const t = useTranslations('DashboardPage');
 
   useEffect(() => {
     const rawData = localStorage.getItem('multiStepFormData')

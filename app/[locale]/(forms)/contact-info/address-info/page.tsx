@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type FormData = {
     address: string
@@ -27,6 +28,8 @@ const Page = () => {
 
     const CATEGORY = 'Contact Information'
     const FORM_NAME = 'Address Information'
+
+    const t = useTranslations('AddressInfoPage');
 
     useEffect(() => {
         const savedData = getFormData(CATEGORY, FORM_NAME);
@@ -52,42 +55,42 @@ const Page = () => {
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
             <div>
-                <h1 className="font-bold text-2xl">Address Information</h1>
-                <p className="text-gray-600">Contact Details</p>
+                <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+                <p className="text-gray-600">{t('formName')}</p>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="my-4">
-                        <Label>Street Address<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('streetAddressLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Input
                             type="text"
-                            placeholder="Enter your street address"
-                            {...register('address', { required: 'Street Address is required' })}
+                            placeholder={t('streetAddressPlaceHolder')}
+                            {...register('address', { required: t('streetAddressRequiredErrorMessage') })}
                         />
                         {errors.address && (
                             <p className="text-sm text-red-500 mt-1">{errors.address.message}</p>
                         )}
                     </div>
                     <div className="my-4">
-                        <Label>City<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('cityLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Input
                             type="text"
-                            placeholder="Enter your city"
-                            {...register('city', { required: 'City is required' })}
+                            placeholder={t('cityPlaceHolder')}
+                            {...register('city', { required: t('cityRequiredErrorMessage') })}
                         />
                         {errors.city && (
                             <p className="text-sm text-red-500 mt-1">{errors.city.message}</p>
                         )}
                     </div>
                     <div className="my-4">
-                        <Label>Zip Code<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('zipLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Input
                             type="text"
-                            placeholder="Enter your zip code"
+                            placeholder={t('zipPlaceHolder')}
                             {...register('zip', {
-                                required: 'Zip Code is required',
+                                required: t('zipRequiredErrorMessage'),
                                 pattern: {
                                     value: /^\d{6}$/,
-                                    message: 'Zip Code must be exactly 6 digits',
+                                    message: t('zipInvalidErrorMessage'),
                                 },
                             })}
                         />
@@ -99,20 +102,20 @@ const Page = () => {
                     <div className="flex justify-between pt-4 border-t">
                         <Link href={'/personal-info/education-info'}>
                             <Button type="button" className="border border-gray-300 py-5">
-                                Previous
+                                {t('previousBtn')}
                             </Button>
                         </Link>
                         {submitted ? (
                             <Button
-                                type="button"
+                                type="submit"
                                 className="bg-gray-900 text-white py-5"
                                 onClick={handleSubmit(onNext)}
                             >
-                                Next
+                                {t('nextBtn')}
                             </Button>
                         ) : (
                             <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
+                                {t('completeBtn')}
                             </Button>
                         )}
                     </div>

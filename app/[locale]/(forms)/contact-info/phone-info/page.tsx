@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type FormData = {
     phone: string
@@ -20,6 +21,8 @@ const Page = () => {
 
     const CATEGORY = 'Contact Information';
     const FORM_NAME = 'Phone Information';
+
+    const t = useTranslations('PhoneInfoPage');
 
     const {
         handleSubmit,
@@ -52,20 +55,21 @@ const Page = () => {
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
             <div>
-                <h1 className="font-bold text-2xl">Phone Information</h1>
-                <p className="text-gray-600">Contact Details</p>
+                <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+                <p className="text-gray-600">{t('formName')}</p>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="my-4">
-                        <Label>Phone Number<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('phoneNumberLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Input
                             type="text"
-                            placeholder="Enter your Phone number"
+                            placeholder={t('phoneNumberPlaceHolder')}
                             {...register('phone', {
-                                required: 'Phone Number is required',
+                                required: t('phoneNumberRequiredErrorMessage'),
                                 minLength: {
                                     value: 10,
-                                    message: 'Phone Number Must be 10 digit'
+                                    message:
+                                        t('phoneNumberInvalidErrorMessage')
                                 }
                             })}
                         />
@@ -74,24 +78,24 @@ const Page = () => {
                         )}
                     </div>
                     <div className="my-4">
-                        <Label>Phone type<span className="ml-[-4px] text-red-500">*</span></Label>
+                        <Label>{t('phoneTypeLabel')}<span className="ml-[-4px] text-red-500">*</span></Label>
                         <Controller
                             name="phoneType"
                             control={control}
-                            rules={{ required: "Phone type is required" }}
+                            rules={{ required: t('phoneTypeRequiredErrorMessage') }}
                             render={({ field }) => (
                                 <RadioGroup onValueChange={field.onChange} value={field.value}>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="mobile" id="mobile" />
-                                        <Label htmlFor="mobile">Mobile</Label>
+                                        <Label htmlFor="mobile">{t('mobile')}</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="home" id="home" />
-                                        <Label htmlFor="home">Home</Label>
+                                        <Label htmlFor="home">{t('home')}</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="work" id="work" />
-                                        <Label htmlFor="work">Work</Label>
+                                        <Label htmlFor="work">{t('work')}</Label>
                                     </div>
                                 </RadioGroup>
                             )}
@@ -104,20 +108,20 @@ const Page = () => {
                     <div className="flex justify-between border-t pt-4">
                         <Link href={'/contact-info/address-info'}>
                             <Button type="button" className="border border-gray-300 py-5">
-                                Previous
+                                {t('previousBtn')}
                             </Button>
                         </Link>
                         {submitted ? (
                             <Button
-                                type="button"
+                                type="submit"
                                 className="bg-gray-900 text-white py-5"
                                 onClick={handleSubmit(onNext)}
                             >
-                                Next
+                                {t('nextBtn')}
                             </Button>
                         ) : (
                             <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
+                                {t('completeBtn')}
                             </Button>
                         )}
                     </div>

@@ -1,5 +1,5 @@
 {
-  "HomePage": {
+  "DashboardPage": {
     "title": "Multi-Step Form Dashboard",
     "tableHeaderFormName": "Form Name",
     "tableHeaderStatus": "Status",
@@ -65,12 +65,72 @@
     "percentageLabel": "Percentage",
     "percentagePlaceHolder": "e.g. 75%",
     "percentageRequiredErrorMessage": "Percentage is required",
-    "startDateLabel":"Start Date",
-    "startDateRequiredErrorMessage":"Start date is required",
-    "endDateLabel":"End Date",
-    "endDateRequiredErrorMessage":"End date is required",
+    "startDateLabel": "Start Date",
+    "startDateRequiredErrorMessage": "Start date is required",
+    "endDateLabel": "End Date",
+    "endDateRequiredErrorMessage": "End date is required",
+    "removeBtn": "Remove",
+    "addOtherBtn": "Add Another Degree",
     "previousBtn": "Previous",
     "nextBtn": "Next",
     "completeBtn": "Complete"
+  },
+  "AddressInfoPage": {
+    "categoryTitle": "Address Information",
+    "formName": "Contact Details",
+    "streetAddressLabel": "Street Address",
+    "streetAddressPlaceHolder": "Enter your street address",
+    "streetAddressRequiredErrorMessage": "Street Address is required",
+    "cityLabel": "City",
+    "cityPlaceHolder": "Enter your city",
+    "cityRequiredErrorMessage": "City is required",
+    "zipLabel": "Zip Code",
+    "zipPlaceHolder": "Enter your zip code",
+    "zipRequiredErrorMessage": "Zip Code is required",
+    "zipInvalidErrorMessage": "Zip Code must be exactly 6 digits",
+    "previousBtn": "Previous",
+    "nextBtn": "Next",
+    "completeBtn": "Complete"
+  },
+  "PhoneInfoPage": {
+    "categoryTitle": "Phone Information",
+    "formName": "Contact Details",
+    "phoneNumberLabel": "Phone Number",
+    "phoneNumberPlaceHolder": "Enter your Phone number",
+    "phoneNumberRequiredErrorMessage": "Phone Number is required",
+    "phoneNumberInvalidErrorMessage": "Phone Number Must be 10 digit",
+    "phoneTypeLabel": "Phone type",
+    "cityPlaceHolder": "Enter your city",
+    "phoneTypeRequiredErrorMessage": "Phone type is required",
+    "mobile": "Mobile",
+    "home": "Home",
+    "work": "work",
+    "previousBtn": "Previous",
+    "nextBtn": "Next",
+    "completeBtn": "Complete"
+  },
+  "CommunicationPrefPage": {
+    "categoryTitle": "Communication Preferences",
+    "formName": "Preferences",
+    "contactMethodLabel": "Preferred Contact Method",
+    "contactTypeRequiredErrorMessage": "Preferred Contact Method is required",
+    "email": "Email",
+    "phone": "Phone",
+    "previousBtn": "Previous",
+    "nextBtn": "Next",
+    "completeBtn": "Complete"
+  },
+  "termConditionPage": {
+    "categoryTitle": "Terms and Conditions",
+    "formName": "Preferences",
+    "termConditionLabel": "I agree to the terms and conditions",
+    "termConditionRequiredErrorMessage": "You must accept the terms and conditions",
+    "email": "Email",
+    "phone": "Phone",
+    "previousBtn": "Previous",
+    "submitAllBtn": "Submit All",
+    "completeBtn": "Complete",
+    "thankyou":"Thank you!",
+    "thankyouMessage":"Your form has been submitted successfully."
   }
 }

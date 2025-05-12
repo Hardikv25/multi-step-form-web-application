@@ -38,7 +38,6 @@ const Page = () => {
 
   const t = useTranslations('DemographicsPage');
 
-
   const CATEGORY = 'Personal Information';
   const FORM_NAME = 'Demographics';
 
@@ -137,7 +136,7 @@ const Page = () => {
             </Link>
             {submitted ? (
               <Button
-                type="button"
+                type="submit"
                 className="bg-gray-900 text-white py-5"
                 onClick={handleSubmit(onNext)}
               >

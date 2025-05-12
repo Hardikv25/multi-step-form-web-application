@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl'
 
 const ContinueButton = () => {
   const router = useRouter()
-  const t = useTranslations('HomePage');
+  const t = useTranslations('DashboardPage');
 
   const handleContinue = () => {
     for (const step of formSteps) {
