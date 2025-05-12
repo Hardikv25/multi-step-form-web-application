@@ -13,6 +13,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type FormData = {
   gender: string;
@@ -34,6 +35,9 @@ const Page = () => {
       ageGroup: '',
     },
   });
+
+  const t = useTranslations('DemographicsPage');
+
 
   const CATEGORY = 'Personal Information';
   const FORM_NAME = 'Demographics';
@@ -66,27 +70,27 @@ const Page = () => {
   return (
     <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
       <div>
-        <h1 className="font-bold text-2xl">Demographics</h1>
-        <p className="text-gray-600">Personal Information</p>
+        <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+        <p className="text-gray-600">{t('formName')}</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-4">
             <Label>
-              Gender<span className="ml-[-4px] text-red-500">*</span>
+              {t('genderLabel')}<span className="ml-[-4px] text-red-500">*</span>
             </Label>
             <Controller
               name="gender"
               control={control}
-              rules={{ required: 'Gender is required' }}
+              rules={{ required: t('genderRequiredErrorMessage') }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a gender" />
+                    <SelectValue placeholder={t('genderPlaceHolder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="male">{t('maleOption')}</SelectItem>
+                    <SelectItem value="female">{t('femaleOption')}</SelectItem>
+                    <SelectItem value="other">{t('otherOption')}</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -98,24 +102,24 @@ const Page = () => {
 
           <div className="my-4">
             <Label>
-              Age Group<span className="ml-[-4px] text-red-500">*</span>
+              {t('ageLabel')}<span className="ml-[-4px] text-red-500">*</span>
             </Label>
             <Controller
               name="ageGroup"
               control={control}
-              rules={{ required: 'Age group is required' }}
+              rules={{ required: t('ageRequiredErrorMessage') }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select an age group" />
+                    <SelectValue placeholder={t('agePlaceHolder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="under18">Under 18</SelectItem>
-                    <SelectItem value="18-24">18-24</SelectItem>
-                    <SelectItem value="25-34">25-34</SelectItem>
-                    <SelectItem value="35-44">35-44</SelectItem>
-                    <SelectItem value="45-54">45-54</SelectItem>
-                    <SelectItem value="55+">55+</SelectItem>
+                    <SelectItem value="under18">{t('under18Option')}</SelectItem>
+                    <SelectItem value="18-24">{t('18-24Option')}</SelectItem>
+                    <SelectItem value="25-34">{t('25-34Option')}</SelectItem>
+                    <SelectItem value="35-44">{t('35-44Option')}</SelectItem>
+                    <SelectItem value="45-54">{t('45-54Option')}</SelectItem>
+                    <SelectItem value="55+">{t('55+Option')}</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -128,7 +132,7 @@ const Page = () => {
           <div className="flex justify-between pt-4 border-t">
             <Link href={'/personal-info/basic-information'}>
               <Button type="button" className="border border-gray-300 py-5">
-                Previous
+                {t('previousBtn')}
               </Button>
             </Link>
             {submitted ? (
@@ -137,11 +141,11 @@ const Page = () => {
                 className="bg-gray-900 text-white py-5"
                 onClick={handleSubmit(onNext)}
               >
-                Next
+                {t('nextBtn')}
               </Button>
             ) : (
               <Button type="submit" className="bg-gray-900 text-white py-5">
-                Complete
+                 {t('completeBtn')}
               </Button>
             )}
           </div>

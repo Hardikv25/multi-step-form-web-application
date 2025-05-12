@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type FormData = {
     fullName: string;
@@ -17,6 +18,8 @@ const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const router = useRouter();
 
+    const t = useTranslations('BasicInfoPage');
+
     const {
         register,
         handleSubmit,
@@ -26,7 +29,7 @@ const Page = () => {
 
     const CATEGORY = 'Personal Information'
     const FORM_NAME = 'Basic Information'
-    
+
     useEffect(() => {
         const savedData = getFormData(CATEGORY, FORM_NAME);
         if (savedData) {
@@ -50,18 +53,18 @@ const Page = () => {
     return (
         <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
             <div>
-                <h1 className="font-bold text-2xl">Basic Information</h1>
-                <p className="text-gray-600">Personal Information</p>
+                <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+                <p className="text-gray-600">{t('formName')}</p>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="my-4">
                         <Label>
-                            Full Name<span className="ml-[-4px] text-red-500">*</span>
+                           {t('fullNameLabel')}<span className="ml-[-4px] text-red-500">*</span>
                         </Label>
                         <Input
                             type="text"
-                            placeholder="Enter your full name"
-                            {...register('fullName', { required: 'Full name is required' })}
+                            placeholder={t('fullNamePlaceHolder')}
+                            {...register('fullName', { required: t('fullNameRequiredErrorMessage') })}
                         />
                         {errors.fullName && (
                             <p className="text-sm text-red-500 mt-1">
@@ -72,16 +75,16 @@ const Page = () => {
 
                     <div className="my-4">
                         <Label>
-                            Email<span className="ml-[-4px] text-red-500">*</span>
+                            {t('emailLabel')}<span className="ml-[-4px] text-red-500">*</span>
                         </Label>
                         <Input
                             type="text"
-                            placeholder="Enter your email"
+                            placeholder={t('emailPlaceHolder')}
                             {...register('email', {
-                                required: 'Email is required',
+                                required: t('emailRequiredErrorMessage'),
                                 pattern: {
                                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                    message: 'Invalid email format',
+                                    message: t('emailInvalidErrorMessage'),
                                 },
                             })}
                         />
@@ -94,7 +97,7 @@ const Page = () => {
 
                     <div className="flex justify-between pt-4 border-t">
                         <Button disabled className="border border-gray-300 py-5">
-                            Previous
+                            {t('previousBtn')}
                         </Button>
                         {submitted ? (
                             <Button
@@ -102,11 +105,11 @@ const Page = () => {
                                 className="bg-gray-900 text-white py-5"
                                 onClick={handleSubmit(onNext)}
                             >
-                                Next
+                                {t('nextBtn')}
                             </Button>
                         ) : (
                             <Button type="submit" className="bg-gray-900 text-white py-5">
-                                Complete
+                                {t('completeBtn')}
                             </Button>
                         )}
                     </div>

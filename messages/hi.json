@@ -1,0 +1,51 @@
+{
+  "HomePage": {
+    "title": "बहु-चरणीय फ़ॉर्म डैशबोर्ड",
+    "tableHeaderFormName": "फ़ॉर्म का नाम",
+    "tableHeaderStatus": "स्थिति",
+    "tableHeaderAction": "क्रिया",
+    "statusCompleted": "पूर्ण",
+    "statusPending": "लंबित",
+    "goBtn": "जाएँ",
+    "resetBtn": "रीसेट करें",
+    "continueBtn": "जारी रखें"
+  },
+  "BasicInfoPage": {
+  "categoryTitle": "मूल जानकारी",
+  "formName": "व्यक्तिगत जानकारी",
+  "fullNameLabel": "पूरा नाम",
+  "fullNamePlaceHolder": "अपना पूरा नाम दर्ज करें",
+  "fullNameRequiredErrorMessage": "पूरा नाम आवश्यक है",
+  "emailLabel": "ईमेल",
+  "emailPlaceHolder": "अपना ईमेल दर्ज करें",
+  "emailRequiredErrorMessage": "ईमेल आवश्यक है",
+  "emailInvalidErrorMessage": "अमान्य ईमेल प्रारूप",
+  "previousBtn": "पिछला",
+  "nextBtn": "अगला",
+  "completeBtn": "पूरा करें"
+},
+"Demographics": {
+  "categoryTitle": "जनसांख्यिकी",
+  "formName": "व्यक्तिगत जानकारी",
+  "genderLabel": "लिंग",
+  "genderPlaceHolder": "लिंग चुनें",
+  "genderRequiredErrorMessage": "लिंग आवश्यक है",
+  "maleOption": "पुरुष",
+  "femaleOption": "महिला",
+  "otherOption": "अन्य",
+  "ageLabel": "आयु समूह",
+  "agePlaceHolder": "एक आयु समूह चुनें",
+  "ageRequiredErrorMessage": "आयु समूह आवश्यक है",
+  "under18Option": "18 वर्ष से कम",
+  "18-24Option": "18-24",
+  "25-34Option": "25-34",
+  "35-44Option": "35-44",
+  "45-54Option": "45-54",
+  "55+Option": "55+",
+  "previousBtn": "पिछला",
+  "nextBtn": "अगला",
+  "completeBtn": "पूरा करें"
+}
+
+
+}

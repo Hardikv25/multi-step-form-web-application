@@ -18,11 +18,14 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { useTranslations } from 'next-intl';
 
 const Page = () => {
   const router = useRouter()
   const [formStatus, setFormStatus] = useState<Record<string, boolean>>({})
   const [openCategory, setOpenCategory] = useState<string | null>(null)
+
+  const t = useTranslations('HomePage');
 
   useEffect(() => {
     const rawData = localStorage.getItem('multiStepFormData')
@@ -68,14 +71,14 @@ const Page = () => {
     <div>
       <div className="flex justify-end mx-6 mb-4 gap-2">
         <Button className="bg-red-500 hover:bg-red-600 shadow-md" onClick={onReset}>
-          Reset
+          {t('resetBtn')}
         </Button>
         <ContinueButton />
       </div>
 
       <div className="border border-gray-200 shadow-md rounded-2xl bg-white mx-6 py-10 px-6 md:px-12 lg:px-20">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          📋 Multi-Step Form Dashboard
+          📋{t('title')}
         </h1>
 
         {Object.entries(groupedForms).map(([category, forms]) => {
@@ -104,9 +107,10 @@ const Page = () => {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableCell className="px-4 py-3 font-medium text-gray-600">Form Name</TableCell>
-                        <TableCell className="px-4 py-3 font-medium text-gray-600">Status</TableCell>
-                        <TableCell className="px-4 py-3 font-medium text-gray-600 text-right">Action</TableCell>
+                        <TableCell className="px-4 py-3 font-medium text-gray-600">
+                          {t('tableHeaderFormName')}</TableCell>
+                        <TableCell className="px-4 py-3 font-medium text-gray-600">{t('tableHeaderStatus')}</TableCell>
+                        <TableCell className="px-4 py-3 font-medium text-gray-600 text-right">{t('tableHeaderAction')}</TableCell>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -126,7 +130,7 @@ const Page = () => {
                                   : 'text-red-500'
                                   }`}
                               >
-                                {status ? 'Completed' : 'Pending'}
+                                {status ? t('statusCompleted') : t('statusPending')}
                               </span>
                             </TableCell>
                             <TableCell className="px-4 py-3 text-right">
@@ -142,7 +146,7 @@ const Page = () => {
                                 }
                                 className="hover:bg-gray-200"
                               >
-                                <MoveRight className="w-4 h-4 mr-1" /> Go
+                                <MoveRight className="w-4 h-4 mr-1" /> {t('goBtn')}
                               </Button>
                             </TableCell>
                           </TableRow>

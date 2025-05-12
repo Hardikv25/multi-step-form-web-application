@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getFormData, setFormData } from '@/utils/formStorage';
+import { useTranslations } from 'next-intl';
 
 type Education = {
   degree: string;
@@ -35,6 +36,9 @@ const Page = () => {
       education: [{ degree: '', startDate: '', endDate: '', percentage: '' }],
     },
   });
+
+  const t = useTranslations('EducationInfoPage');
+
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -66,34 +70,35 @@ const Page = () => {
   return (
     <div className="shadow-2xl rounded-xl bg-white p-4 sm:p-6">
       <div>
-        <h1 className="font-bold text-2xl">Education Qualification</h1>
-        <p className="text-gray-600">Please provide your education details</p>
+        <h1 className="font-bold text-2xl">{t('categoryTitle')}</h1>
+        <p className="text-gray-600">{t('formName')}</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {fields.map((field, index) => (
             <div key={field.id} className="space-y-4 border p-4 rounded-lg shadow-sm mb-4">
               <div className='grid grid-cols-2 gap-4'>
                 <div className='col-span-1'>
-                  <Label>Degree</Label>
+                  <Label>{t('degreeLabel')}</Label>
                   <Select
                     onValueChange={(value) => setValue(`education.${index}.degree`, value)}
                     defaultValue={fields[index]?.degree}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Degree" />
+                      <SelectValue placeholder="" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="High School">High School</SelectItem>
-                      <SelectItem value="Diploma">Diploma</SelectItem>
-                      <SelectItem value="B.Tech">B.Tech</SelectItem>
-                      <SelectItem value="B.Sc">B.Sc</SelectItem>
-                      <SelectItem value="B.Com">B.Com</SelectItem>
-                      <SelectItem value="M.Tech">M.Tech</SelectItem>
-                      <SelectItem value="M.Sc">M.Sc</SelectItem>
-                      <SelectItem value="MCA">MCA</SelectItem>
-                      <SelectItem value="MBA">MBA</SelectItem>
-                      <SelectItem value="PhD">PhD</SelectItem>
+                      <SelectItem value="High School">{t('highSchool')}</SelectItem>
+                      <SelectItem value="Diploma">{t('diploma')}</SelectItem>
+                      <SelectItem value="B.Tech">{t('bTech')}</SelectItem>
+                      <SelectItem value="B.Sc">{t('bsc')}</SelectItem>
+                      <SelectItem value="B.Com">{t('bCom')}</SelectItem>
+                      <SelectItem value="M.Tech">{t('mTech')}</SelectItem>
+                      <SelectItem value="M.Sc">{t('msc')}</SelectItem>
+                      <SelectItem value="MCA">{t('mca')}</SelectItem>
+                      <SelectItem value="MBA">{t('mba')}</SelectItem>
+                      <SelectItem value="PhD">{t('phd')}</SelectItem>
                     </SelectContent>
+
                   </Select>
                   {errors.education?.[index]?.degree?.message && (
                     <p className="text-sm text-red-500 mt-1">
@@ -102,12 +107,12 @@ const Page = () => {
                   )}
                 </div>
                 <div className='col-span-1'>
-                  <Label>Percentage</Label>
+                  <Label>{t('percentageLabel')}</Label>
                   <Input
                     type="text"
-                    placeholder="e.g. 75%"
+                    placeholder={t('percentagePlaceHolder')}
                     {...register(`education.${index}.percentage`, {
-                      required: 'Percentage is required',
+                      required: t('percentageRequiredErrorMessage'),
                     })}
                   />
                   {errors.education?.[index]?.percentage && (
@@ -120,11 +125,11 @@ const Page = () => {
 
               <div className='grid grid-cols-2 gap-4'>
                 <div className='col-span-1'>
-                  <Label>Start Date</Label>
+                  <Label>{t('startDateLabel')}</Label>
                   <Input
                     type="date"
                     {...register(`education.${index}.startDate`, {
-                      required: 'Start date is required',
+                      required: t('startDateRequiredErrorMessage'),
                     })}
                   />
                   {errors.education?.[index]?.startDate && (
@@ -135,11 +140,11 @@ const Page = () => {
                 </div>
 
                 <div className='col-span-1'>
-                  <Label>End Date</Label>
+                  <Label>{t('endDateLabel')}</Label>
                   <Input
                     type="date"
                     {...register(`education.${index}.endDate`, {
-                      required: 'End date is required',
+                      required: t('endDateRequiredErrorMessage'),
                     })}
                   />
                   {errors.education?.[index]?.endDate && (

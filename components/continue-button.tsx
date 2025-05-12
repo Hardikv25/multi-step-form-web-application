@@ -5,9 +5,11 @@ import { Button } from './ui/button'
 import { ArrowBigRightDash } from 'lucide-react'
 import { formSteps } from '@/utils/form-steps'
 import { getFormData } from '@/utils/formStorage'
+import { useTranslations } from 'next-intl'
 
 const ContinueButton = () => {
   const router = useRouter()
+  const t = useTranslations('HomePage');
 
   const handleContinue = () => {
     for (const step of formSteps) {
@@ -22,7 +24,7 @@ const ContinueButton = () => {
 
   return (
     <Button onClick={handleContinue}>
-      Continue <ArrowBigRightDash className="ml-2" />
+      {t('continueBtn')} <ArrowBigRightDash className="ml-2" />
     </Button>
   )
 }
