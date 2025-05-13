@@ -1,6 +1,6 @@
 import React from 'react'
 import BasicInfo from './basic-information/page'
-import withSmartNavigation from '../../withSmartNavigation '
+import withSmartNavigation from '../../withSmartNavigation'
 
 const Page = () => {
   return (
