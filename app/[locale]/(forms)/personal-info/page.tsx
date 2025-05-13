@@ -1,6 +1,5 @@
 import React from 'react'
 import BasicInfo from './basic-information/page'
-import withSmartNavigation from '../../withSmartNavigation'
 
 const Page = () => {
   return (
@@ -10,4 +9,4 @@ const Page = () => {
   )
 }
 
-export default withSmartNavigation(Page)
+export default Page
