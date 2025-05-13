@@ -25,8 +25,8 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
-    const CATEGORY = 'Contact Information'
-    const FORM_NAME = 'Address Information'
+    const CATEGORY = 'contact-info'
+    const FORM_NAME = 'address-info'
 
     const t = useTranslations('AddressInfoPage');
 

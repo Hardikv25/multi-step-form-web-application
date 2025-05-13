@@ -18,8 +18,8 @@ const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const router = useRouter();
 
-    const CATEGORY = 'Contact Information';
-    const FORM_NAME = 'Phone Information';
+    const CATEGORY = 'contact-info';
+    const FORM_NAME = 'phone-info';
 
     const t = useTranslations('PhoneInfoPage');
 

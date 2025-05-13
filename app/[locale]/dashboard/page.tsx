@@ -26,6 +26,7 @@ const Page = () => {
   const [openCategory, setOpenCategory] = useState<string | null>(null)
 
   const t = useTranslations('DashboardPage');
+  const tFormsData = useTranslations('FormsData')
 
   useEffect(() => {
     const rawData = localStorage.getItem('multiStepFormData')
@@ -57,9 +58,13 @@ const Page = () => {
   }
 
   const onReset = () => {
-    localStorage.clear()
-    setFormStatus({})
+  const confirmed = window.confirm("Are you sure you want to reset the form? This will clear all saved data.");
+  if (confirmed) {
+    localStorage.clear();
+    setFormStatus({});
   }
+};
+
 
   const groupedForms = formSteps.reduce((acc, step) => {
     if (!acc[step.categoryName]) acc[step.categoryName] = []
@@ -95,7 +100,7 @@ const Page = () => {
                   className="w-full px-4 py-3 flex items-center justify-between font-semibold text-left bg-gray-100 rounded-t-lg text-gray-700"
                   onClick={() => setOpenCategory(isOpen ? null : category)}
                 >
-                  <span>{category}</span>
+                  <span>{tFormsData(category)}</span>
                   <ChevronRight
                     className={`transition-transform ${isOpen ? 'rotate-90' : ''}`}
                   />
@@ -121,7 +126,7 @@ const Page = () => {
                         return (
                           <TableRow key={form.id} className="border-b hover:bg-gray-50 transition">
                             <TableCell className="px-4 py-3 text-gray-800">
-                              {form.formName}
+                              {tFormsData(form.formName)}
                             </TableCell>
                             <TableCell className="px-4 py-3">
                               <span

@@ -23,8 +23,8 @@ const Page = () => {
     setValue,
   } = useForm<FormData>();
 
-  const CATEGORY = 'Preferences';
-  const FORM_NAME = 'Terms & Conditions';
+  const CATEGORY = 'preferences';
+  const FORM_NAME = 'terms-and-conditions';
 
   const t = useTranslations('termConditionPage');
 

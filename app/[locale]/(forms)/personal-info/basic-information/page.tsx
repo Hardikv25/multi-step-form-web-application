@@ -27,8 +27,8 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
-    const CATEGORY = 'Personal Information'
-    const FORM_NAME = 'Basic Information'
+    const CATEGORY = 'personal-info'
+    const FORM_NAME = 'basic-info'
 
     useEffect(() => {
         const savedData = getFormData(CATEGORY, FORM_NAME);
@@ -101,7 +101,7 @@ const Page = () => {
                         </Button>
                         {submitted ? (
                             <Button
-                                type="button"
+                                type="submit"
                                 className="bg-gray-900 text-white py-5"
                                 onClick={handleSubmit(onNext)}
                             >

@@ -44,8 +44,8 @@ const Page = () => {
     name: 'education',
   });
 
-  const CATEGORY = 'Personal Information';
-  const FORM_NAME = 'Education';
+  const CATEGORY = 'personal-info';
+  const FORM_NAME = 'education-info';
 
   useEffect(() => {
     const savedData = getFormData(CATEGORY, FORM_NAME);

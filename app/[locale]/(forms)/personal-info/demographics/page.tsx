@@ -37,8 +37,8 @@ const Page = () => {
 
   const t = useTranslations('DemographicsPage');
 
-  const CATEGORY = 'Personal Information';
-  const FORM_NAME = 'Demographics';
+  const CATEGORY = 'personal-info';
+  const FORM_NAME = 'demographics';
 
   const [isLoaded, setIsLoaded] = useState(false);
 

@@ -14,6 +14,18 @@
     "communication-preferences": "संचार प्राथमिकताएं",
     "terms-and-conditions": "नियम और शर्तें"
   },
+  "FormsData": {
+    "personal-info": "व्यक्तिगत जानकारी",
+    "basic-info": "मूल जानकारी",
+    "demographics": "जनसांख्यिकी",
+    "education-info": "शैक्षिक योग्यता",
+    "contact-info": "संपर्क विवरण",
+    "address-info": "पता जानकारी",
+    "phone-info": "फोन जानकारी",
+    "preferences": "पसंद",
+    "communication-preferences": "संचार वरीयताएँ",
+    "terms-and-conditions": "नियम और शर्तें"
+  },
   "DashboardPage": {
     "title": "बहु-चरणीय फ़ॉर्म डैशबोर्ड",
     "tableHeaderFormName": "फ़ॉर्म का नाम",

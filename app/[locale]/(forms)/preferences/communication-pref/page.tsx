@@ -23,8 +23,8 @@ const Page = () => {
         setValue,
     } = useForm<FormData>();
 
-    const CATEGORY = 'Preferences';
-    const FORM_NAME = 'Communication Preferences';
+    const CATEGORY = 'preferences';
+    const FORM_NAME = 'communication-preferences';
 
     const t = useTranslations('CommunicationPrefPage');
 
