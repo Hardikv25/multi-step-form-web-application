@@ -37,25 +37,27 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center justify-between px-4 bg-gray-100">
-              <div className="flex items-center gap-2">
-                <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mr-2 h-4" />
-              </div>
+        <NextIntlClientProvider locale={locale} messages={messages}>
 
-              <LanguageSwitcher currentLocale={locale} />
-            </header>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <header className="flex h-16 shrink-0 items-center justify-between px-4 bg-gray-100">
+                <div className="flex items-center gap-2">
+                  <SidebarTrigger className="-ml-1" />
+                  <Separator orientation="vertical" className="mr-2 h-4" />
+                </div>
 
-            <div className="flex flex-1 flex-col gap-4 p-4 sm:p-8">
-              <NextIntlClientProvider locale={locale} messages={messages}>
+                <LanguageSwitcher currentLocale={locale} />
+              </header>
+
+              <div className="flex flex-1 flex-col gap-4 p-4 sm:p-8">
                 {children}
-              </NextIntlClientProvider>
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
+
+              </div>
+            </SidebarInset>
+          </SidebarProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

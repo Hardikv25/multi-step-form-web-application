@@ -22,6 +22,7 @@ import {
 
 import { formSteps } from "@/utils/form-steps"
 import { getFormData } from "@/utils/formStorage"
+import { useTranslations } from "next-intl"
 
 export function NavMain({
   items,
@@ -38,6 +39,8 @@ export function NavMain({
 }) {
   const pathname = usePathname()
   const router = useRouter()
+    const t = useTranslations('Sidebar');
+  
 
   const [enabledPaths, setEnabledPaths] = useState<string[]>([])
   const [openGroupTitle, setOpenGroupTitle] = useState<string | null>(null)
@@ -70,7 +73,7 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Forms</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('forms')}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const isOpen = openGroupTitle === item.title

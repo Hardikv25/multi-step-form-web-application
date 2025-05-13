@@ -18,77 +18,78 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { NavProjects } from "./nav-projects"
-
-const data = {
-  teams: [
-    {
-      name: "Multi Step Form",
-      logo: GalleryVerticalEnd,
-      plan: "Forms",
-    },
-  ],
-  projects: [
-    {
-      name: "Dashboard",
-      url: "/",
-      icon: PieChart,
-    },
-  ],
-  navMain: [
-    {
-      title: "Personal Information",
-      url: "#",
-      icon: SquareTerminal,
-      items: [
-        {
-          title: "Basic Information",
-          url: "/personal-info/basic-information",
-        },
-        {
-          title: "Demographics",
-          url: "/personal-info/demographics",
-        },
-        {
-          title: "Education Qualification",
-          url: "/personal-info/education-info",
-        },
-      ],
-    },
-    {
-      title: "Contact Details",
-      url: "#",
-      icon: Contact,
-      items: [
-        {
-          title: "Address Information",
-          url: "/contact-info/address-info",
-        },
-        {
-          title: "Phone Information",
-          url: "/contact-info/phone-info",
-        }
-      ],
-    },
-    {
-      title: "Preferences",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Communication Preferences",
-          url: "/preferences/communication-pref",
-        },
-        {
-          title: "Terms and Conditions",
-          url: "/preferences/term-condition",
-        }
-      ],
-    },
-  ],
-  
-}
+import { useTranslations } from 'next-intl';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const t = useTranslations('Sidebar');
+  const data = {
+    teams: [
+      {
+        name: t('title'),
+        logo: GalleryVerticalEnd,
+        plan: t('forms'),
+      },
+    ],
+    projects: [
+      {
+        name: t('dashboard'),
+        url: "/",
+        icon: PieChart,
+      },
+    ],
+    navMain: [
+      {
+        title: t('personal-info'),
+        url: "#",
+        icon: SquareTerminal,
+        items: [
+          {
+            title: t('basic-info'),
+            url: "/personal-info/basic-information",
+          },
+          {
+            title: t('demographics'),
+            url: "/personal-info/demographics",
+          },
+          {
+            title: t('education-info'),
+            url: "/personal-info/education-info",
+          },
+        ],
+      },
+      {
+        title: t('contact-info'),
+        url: "#",
+        icon: Contact,
+        items: [
+          {
+            title: t('address-info'),
+            url: "/contact-info/address-info",
+          },
+          {
+            title: t('phone-info'),
+            url: "/contact-info/phone-info",
+          }
+        ],
+      },
+      {
+        title: t('preferences'),
+        url: "#",
+        icon: BookOpen,
+        items: [
+          {
+            title: t('communication-preferences'),
+            url: "/preferences/communication-pref",
+          },
+          {
+            title: t('terms-and-conditions'),
+            url: "/preferences/term-condition",
+          }
+        ],
+      },
+    ],
+
+  }
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

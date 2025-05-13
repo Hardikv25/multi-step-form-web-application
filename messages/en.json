@@ -1,4 +1,34 @@
 {
+  "Sidebar": {
+    "title": "Multi Step Form",
+    "forms": "Forms",
+    "dashboard": "Dashboard",
+    "personal-info": "Personal Information",
+    "basic-info": "Basic Information",
+    "demographics": "Demographics",
+    "education-info": "Education Qualification",
+    "contact-info": "Contact Details",
+    "address-info": "Address Information",
+    "phone-info": "Phone Information",
+    "preferences": "Preferences",
+    "communication-preferences": "Communication Preferences",
+    "terms-and-conditions": "Terms and Conditions"
+  },
+  "FormsData": {
+    "title": "Multi Step Form",
+    "forms": "Forms",
+    "dashboard": "Dashboard",
+    "personal-info": "Personal Information",
+    "basic-info": "Basic Information",
+    "demographics": "Demographics",
+    "education-info": "Education Qualification",
+    "contact-info": "Contact Details",
+    "address-info": "Address Information",
+    "phone-info": "Phone Information",
+    "preferences": "Preferences",
+    "communication-preferences": "Communication Preferences",
+    "terms-and-conditions": "Terms and Conditions"
+  },
   "DashboardPage": {
     "title": "Multi-Step Form Dashboard",
     "tableHeaderFormName": "Form Name",
@@ -130,7 +160,7 @@
     "previousBtn": "Previous",
     "submitAllBtn": "Submit All",
     "completeBtn": "Complete",
-    "thankyou":"Thank you!",
-    "thankyouMessage":"Your form has been submitted successfully."
+    "thankyou": "Thank you!",
+    "thankyouMessage": "Your form has been submitted successfully."
   }
 }

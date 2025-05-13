@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 export function NavProjects({
   projects,
@@ -23,9 +24,12 @@ export function NavProjects({
 }) {
 
   const pathname = usePathname();
+    const t = useTranslations('Sidebar');
+  
+
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('dashboard')}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
