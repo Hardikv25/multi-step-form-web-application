@@ -4,11 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/navigation';
 
 type Education = {
   degree: string;

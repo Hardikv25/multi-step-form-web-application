@@ -2,7 +2,7 @@
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+
 
 import {
   Collapsible,
@@ -23,6 +23,7 @@ import {
 import { formSteps } from "@/utils/form-steps"
 import { getFormData } from "@/utils/formStorage"
 import { useTranslations } from "next-intl"
+import { usePathname, useRouter } from "@/i18n/navigation"
 
 export function NavMain({
   items,

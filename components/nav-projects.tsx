@@ -9,9 +9,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
+import { Link, usePathname } from "@/i18n/navigation"
 
 export function NavProjects({
   projects,

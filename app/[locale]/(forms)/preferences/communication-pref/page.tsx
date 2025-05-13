@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Controller, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
-import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import Link from 'next/link';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/navigation';
 
 type FormData = {
     contactType: string;

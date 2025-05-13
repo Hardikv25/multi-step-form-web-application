@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
+
 import { useTransition } from 'react';
 import {
   Select,
@@ -9,6 +9,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 interface Props {
   currentLocale: string;

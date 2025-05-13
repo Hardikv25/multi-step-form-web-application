@@ -10,10 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/navigation';
 
 type FormData = {
   gender: string;

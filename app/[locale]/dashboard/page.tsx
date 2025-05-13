@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { MoveRight, ChevronRight } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { formSteps } from '@/utils/form-steps'
 import {
   Collapsible,
@@ -19,6 +18,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation'
 
 const Page = () => {
   const router = useRouter()

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Controller, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 type FormData = {
   terms: boolean;

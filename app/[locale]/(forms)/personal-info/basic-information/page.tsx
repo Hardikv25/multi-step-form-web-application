@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
-import { useRouter } from 'next/navigation';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 
 type FormData = {
     fullName: string;

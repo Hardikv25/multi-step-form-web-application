@@ -1,11 +1,12 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+
 import { Button } from './ui/button'
 import { ArrowBigRightDash } from 'lucide-react'
 import { formSteps } from '@/utils/form-steps'
 import { getFormData } from '@/utils/formStorage'
 import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 
 const ContinueButton = () => {
   const router = useRouter()
