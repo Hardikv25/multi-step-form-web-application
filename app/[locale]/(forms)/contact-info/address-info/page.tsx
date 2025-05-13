@@ -7,6 +7,7 @@ import { Link, useRouter } from '@/i18n/navigation';
 import { Input } from '@/components/ui/input';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
+import withSmartNavigation from '@/app/[locale]/withSmartNavigation ';
 
 type FormData = {
     address: string
@@ -124,4 +125,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default withSmartNavigation(Page);

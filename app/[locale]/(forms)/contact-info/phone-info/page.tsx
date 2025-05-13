@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
+import withSmartNavigation from '@/app/[locale]/withSmartNavigation ';
 
 type FormData = {
     phone: string
@@ -130,4 +131,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default withSmartNavigation(Page);

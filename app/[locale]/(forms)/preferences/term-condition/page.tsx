@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import withSmartNavigation from '@/app/[locale]/withSmartNavigation ';
 
 type FormData = {
   terms: boolean;
@@ -108,4 +109,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default withSmartNavigation(Page);

@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { getFormData, setFormData } from '@/utils/formStorage';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
+import withSmartNavigation from '@/app/[locale]/withSmartNavigation ';
 
 type Education = {
   degree: string;
@@ -197,4 +198,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default withSmartNavigation(Page);

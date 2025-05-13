@@ -1,7 +1,8 @@
 import React from 'react'
 import BasicInfo from './basic-information/page'
+import withSmartNavigation from '../../withSmartNavigation '
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <BasicInfo/>
@@ -9,4 +10,4 @@ const page = () => {
   )
 }
 
-export default page
+export default withSmartNavigation(Page)
