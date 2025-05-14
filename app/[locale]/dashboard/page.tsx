@@ -58,19 +58,19 @@ const Page = () => {
   }
 
   const onReset = () => {
-  const confirmed = window.confirm("Are you sure you want to reset the form? This will clear all saved data.");
-  if (confirmed) {
-    localStorage.clear();
-    setFormStatus({});
-  }
-};
-
+    const confirmed = window.confirm("Are you sure you want to reset the form? This will clear all saved data.");
+    if (confirmed) {
+      localStorage.clear();
+      setFormStatus({});
+    }
+  };
 
   const groupedForms = formSteps.reduce((acc, step) => {
     if (!acc[step.categoryName]) acc[step.categoryName] = []
     acc[step.categoryName].push(step)
     return acc
   }, {} as Record<string, typeof formSteps>)
+
 
   return (
     <div>
@@ -123,6 +123,15 @@ const Page = () => {
                         const key = `${form.categoryName}-${form.formName}`
                         const status = formStatus[key]
 
+                        const firstIncompleteForm = formSteps.find(
+                          (step) => !formStatus[`${step.categoryName}-${step.formName}`]
+                        );
+                        const isFirstIncomplete =
+                          firstIncompleteForm?.categoryName === form.categoryName &&
+                          firstIncompleteForm?.formName === form.formName;
+
+                        const isGoButtonEnabled = status || isFirstIncomplete;
+
                         return (
                           <TableRow key={form.id} className="border-b hover:bg-gray-50 transition">
                             <TableCell className="px-4 py-3 text-gray-800">
@@ -142,6 +151,7 @@ const Page = () => {
                               <Button
                                 variant="outline"
                                 size="sm"
+                                disabled={!isGoButtonEnabled}
                                 onClick={() =>
                                   handleSmartNavigate(
                                     form.categoryName,

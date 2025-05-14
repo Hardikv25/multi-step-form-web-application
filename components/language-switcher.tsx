@@ -1,7 +1,5 @@
 'use client';
 
-
-import { useTransition } from 'react';
 import {
   Select,
   SelectTrigger,
@@ -9,34 +7,37 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { usePathname, useRouter } from 'next/navigation';
+
+import { Locale, routing } from '@/i18n/routing';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 interface Props {
-  currentLocale: string;
+  defaultValue: string;
+  label: string;
 }
 
-export default function LanguageSwitcher({ currentLocale }: Props) {
+export default function LanguageSwitcher({ defaultValue, label }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const [, startTransition] = useTransition();
 
   const handleChange = (newLocale: string) => {
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    const newPath = segments.join('/');
-    startTransition(() => {
-      router.replace(newPath);
-    });
+    router.replace(
+      { pathname },
+      { locale: newLocale as Locale }
+    );
   };
 
   return (
-    <Select value={currentLocale} onValueChange={handleChange}>
-      <SelectTrigger className="w-[140px] bg-white">
+    <Select defaultValue={defaultValue} onValueChange={handleChange}>
+      <SelectTrigger className="w-[140px] bg-white" aria-label={label}>
         <SelectValue placeholder="Select Language" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="en">English</SelectItem>
-        <SelectItem value="hi">हिन्दी</SelectItem>
+        {routing.locales.map((locale) => (
+          <SelectItem key={locale} value={locale}>
+            {locale === 'en' ? 'English' : 'हिन्दी'}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

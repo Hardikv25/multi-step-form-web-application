@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
 import LanguageSwitcher from "@/components/language-switcher";
 import { getMessages } from "next-intl/server";
 
@@ -26,9 +26,9 @@ export default async function RootLayout({
   children: React.ReactNode,
   params: { locale: string };
 }>) {
-  const { locale } = params;
+  const { locale } = await params;
 
-  if (!hasLocale(routing.locales, locale)) {
+  if (!hasLocale(routing.locales, locale as Locale)) {
     notFound();
   }
 
@@ -38,7 +38,6 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
-
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
@@ -48,12 +47,11 @@ export default async function RootLayout({
                   <Separator orientation="vertical" className="mr-2 h-4" />
                 </div>
 
-                <LanguageSwitcher currentLocale={locale} />
+                <LanguageSwitcher defaultValue={locale} label="Language"/>
               </header>
 
               <div className="flex flex-1 flex-col gap-4 p-4 sm:p-8">
                 {children}
-
               </div>
             </SidebarInset>
           </SidebarProvider>

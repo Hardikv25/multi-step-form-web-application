@@ -40,9 +40,7 @@ export function NavMain({
 }) {
   const pathname = usePathname()
   const router = useRouter()
-    const t = useTranslations('Sidebar');
-  
-
+  const t = useTranslations('Sidebar');
   const [enabledPaths, setEnabledPaths] = useState<string[]>([])
   const [openGroupTitle, setOpenGroupTitle] = useState<string | null>(null)
 
@@ -86,9 +84,8 @@ export function NavMain({
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                     <ChevronRight
-                      className={`ml-auto transition-transform duration-200 ${
-                        isOpen ? "rotate-90" : ""
-                      }`}
+                      className={`ml-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""
+                        }`}
                     />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -103,13 +100,12 @@ export function NavMain({
                           <SidebarMenuSubButton asChild>
                             <button
                               onClick={() => enabled && router.push(subItem.url)}
-                              className={`w-full text-left flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                                active
+                              className={`w-full text-left flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${active
                                   ? "bg-black text-white hover:bg-neutral-800"
                                   : enabled
-                                  ? "text-gray-700 hover:bg-gray-200"
-                                  : "text-gray-400 cursor-not-allowed"
-                              }`}
+                                    ? "text-gray-900 hover:bg-gray-200"
+                                    : "text-gray-400 cursor-not-allowed"
+                                }`}
                             >
                               <span>{subItem.title}</span>
                             </button>
