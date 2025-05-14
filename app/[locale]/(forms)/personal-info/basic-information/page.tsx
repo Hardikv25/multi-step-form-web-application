@@ -13,7 +13,6 @@ type FormData = {
     email: string;
 };
 
-
 const Page = () => {
     const [submitted, setSubmitted] = useState(false);
     const router = useRouter();
